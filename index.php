@@ -13,13 +13,15 @@
 		try{
 			define('RACINE', __DIR__);
 			include_once('config/conf.php');
+			include_once(INCLUDE_CLASS. 'autoloader.php');
 
-			include_once(INCLUDE_PATH. 'connect.inc.php');
-			include_once(INCLUDE_CLASS. 'client.class.php');
+			AutoLoader::AutoLoad(INCLUDE_CLASS. "connexionBd");
+			AutoLoader::AutoLoad(INCLUDE_CLASS. "client");
 
-			include_once(INCLUDE_PATH. 'traitements.inc.php');
 
-			$conn = connectionBd();
+			include_once(INCLUDE_PATH. 'traitements.php');
+
+			$conn = ConnexionBdd::connectionBd();
 
 	?>
 
@@ -30,7 +32,7 @@
 			<div><?php echo $unClient->afficheUnClient(); ?></div>
 			<div><?php recupPlusieursObjetsClient($conn); ?></div>
 			<div><?php afficheTousClientsObjet($conn); ?></div>
-			
+
 	</body>
 
 	<?php 
