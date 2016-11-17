@@ -28,7 +28,9 @@
 			<div><?php afficheTousClients($conn); ?></div>
 			<div><?php $unClient = recupUnObjetClient($conn, 123); ?></div>
 			<div><?php echo $unClient->afficheUnClient(); ?></div>
-
+			<div><?php recupPlusieursObjetsClient($conn); ?></div>
+			<div><?php afficheTousClientsObjet($conn); ?></div>
+			
 	</body>
 
 	<?php 

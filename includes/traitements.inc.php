@@ -10,7 +10,7 @@
 		var_dump($unClient);
 	}
 
-	function AfficheTousClients($unObjetPdo){
+	function afficheTousClients($unObjetPdo){
 		$sql = "SELECT * FROM CLIENT";
 		$lignes = $unObjetPdo->query($sql);
 
@@ -18,6 +18,16 @@
 
 		while($unClient = $lignes->fetch()){
 			echo "Numéro du client : " . $unClient->NOCLI . " Nom du client : " . $unClient->NOMCLI . " prenom : " . $unClient->PRENOMCLI . "<br>";
+		}
+	}
+
+
+	function afficheTousClientsObjet($unObjetPdo){
+		$tableauClients = recupPlusieursObjetsClient($unObjetPdo);
+		echo "<p>Liste des clients : </p>";
+
+		foreach ($tableauClients as $unObjetClient) {
+			echo $unObjetClient->afficheUnClient() . "<br>";
 		}
 	}
 
@@ -30,4 +40,16 @@
 		$unClient = $ligne->fetchObject('Client');
 		var_dump($unClient);
 		return $unClient;
+	}
+
+	function recupPlusieursObjetsClient($unObjetPdo){
+		$sql = "select * from client";
+		$lignes = $unObjetPdo->query($sql);
+
+		if($lignes->rowCount() > 0){
+			$tableauClients = $lignes->fetchAll(PDO::FETCH_CLASS, 'Client');
+			return $tableauClients;
+		}else{
+			throw new Exception('Aucun client trouvé');
+		}
 	}
